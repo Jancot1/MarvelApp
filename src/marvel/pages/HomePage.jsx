@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material"
-import { MarvelLayout } from "../"
+import { MarvelLayout } from ".."
 
-export const CharactersPage = () => {
+export const HomePage = () => {
   return (
     <>
       <MarvelLayout>

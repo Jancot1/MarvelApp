@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import { AuthRoutes } from "../auth";
-import { CharactersPage } from "../marvel"
+import { HomePage } from "../marvel";
 
 export const AppRouter = () => {
 
@@ -11,7 +11,7 @@ export const AppRouter = () => {
             {
                 (authStatus === 'not-authenticated')
                 ? <Route path = "/auth/*" element={ <AuthRoutes />} />
-                : <Route path = "/*" element={ <CharactersPage />} />
+                : <Route path = "/*" element={ <HomePage />} />
             }
 
         <Route path="/*" element={ <Navigate to="/auth/login" /> } />
