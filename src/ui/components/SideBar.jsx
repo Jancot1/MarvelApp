@@ -2,17 +2,21 @@ import { Box, Divider, Drawer, List, ListItem,
     ListItemButton, ListItemIcon, ListItemText, styled 
 } from "@mui/material";
 
+// import PersonSharpIcon from '@mui/icons-material/PersonSharp';
+// import TurnedInNotSharpIcon from '@mui/icons-material/TurnedInNotSharp';
 import ImportContactsSharpIcon from '@mui/icons-material/ImportContactsSharp';
-import PersonSharpIcon from '@mui/icons-material/PersonSharp';
-import TurnedInNotSharpIcon from '@mui/icons-material/TurnedInNotSharp';
+import StarIcon from '@mui/icons-material/Star';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from "react-router-dom";
 
 export const SideBar = ({ drawerwidth, open }) => {
 
     const icons = [
         <ImportContactsSharpIcon />,
-        <PersonSharpIcon />,
-        <TurnedInNotSharpIcon />
+        <StarIcon />,
+        // <PersonSharpIcon />,
+        // <TurnedInNotSharpIcon />
+        <FavoriteIcon />
     ];
 
     return (

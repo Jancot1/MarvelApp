@@ -1,6 +1,9 @@
+import { Typography } from "@mui/material"
 
 export const ComicsPage = () => {
   return (
-    <h1>ComicsPage</h1>
+    <Typography paragraph>
+      ComicsPage
+    </Typography>
   )
 }
