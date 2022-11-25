@@ -3,6 +3,7 @@ import { Box, Toolbar, IconButton, Typography, InputBase, AppBar } from '@mui/ma
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { SideBar } from './SideBar';
+import { Link } from "react-router-dom";
 
 export const NavBar = ({ open, setOpen, drawerwidth }) => {
 
@@ -27,8 +28,10 @@ export const NavBar = ({ open, setOpen, drawerwidth }) => {
           <Typography
             variant="h6"
             noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            component={Link}
+            color = "inherit"
+            to ="/"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, textDecoration: 'none' }}
           >
             MarvelApp
           </Typography>

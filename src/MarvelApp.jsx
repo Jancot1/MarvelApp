@@ -5,7 +5,7 @@ export const MarvelApp = () => {
   return (
     <>
       <BrowserRouter>
-          <AppRouter />
+        <AppRouter />
       </BrowserRouter>
     </>
   )

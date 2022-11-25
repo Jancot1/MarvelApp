@@ -1,9 +1,8 @@
-import { Box, Divider, Drawer, List, ListItem, 
-    ListItemButton, ListItemIcon, ListItemText, styled 
+import {
+    Box, Divider, Drawer, List, ListItem,
+    ListItemButton, ListItemIcon, ListItemText, styled
 } from "@mui/material";
 
-// import PersonSharpIcon from '@mui/icons-material/PersonSharp';
-// import TurnedInNotSharpIcon from '@mui/icons-material/TurnedInNotSharp';
 import ImportContactsSharpIcon from '@mui/icons-material/ImportContactsSharp';
 import StarIcon from '@mui/icons-material/Star';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -11,18 +10,8 @@ import { Link } from "react-router-dom";
 
 export const SideBar = ({ drawerwidth, open }) => {
 
-    const icons = [
-        <ImportContactsSharpIcon />,
-        <StarIcon />,
-        // <PersonSharpIcon />,
-        // <TurnedInNotSharpIcon />
-        <FavoriteIcon />
-    ];
-
     return (
-        <Box sx={{
-            backgroundColor: 'secondary.main'
-        }}>
+        <Box >
             <Drawer
                 sx={{
                     width: `${drawerwidth}px`,
@@ -37,25 +26,39 @@ export const SideBar = ({ drawerwidth, open }) => {
                 open={open}
             >
                 <DrawerHeader>
-                    <Link 
+                    <Link
                         className="navbar-brand logo"
                         to="/"
                     >
-                        <img src="../marvel.png" width="150" height="95"/>
+                        <img src="../marvel.png" width="150" height="95" />
                     </Link>
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {["Comics", "Characters", "My colections"].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    {icons[index]}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
+                    <ListItem disablePadding>
+                        <ListItemButton color='inherit' component={Link} to="/comics">
+                            <ListItemIcon>
+                                <ImportContactsSharpIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Comics" color="primary.contrastText"/>
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton color='inherit' component={Link} to="/characters">
+                            <ListItemIcon>
+                                <StarIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Characters" />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton color='inherit' component={Link} to="/colections">
+                            <ListItemIcon>
+                                <FavoriteIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="My colections" />
+                        </ListItemButton>
+                    </ListItem>
                 </List>
                 <Divider />
             </Drawer>
@@ -70,4 +73,4 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'center',
-  }));
+}));
