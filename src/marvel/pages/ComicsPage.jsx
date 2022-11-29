@@ -1,16 +1,16 @@
 import { useEffect } from "react"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getComics } from "../../store/slices/thunks";
 
 export const ComicsPage = () => {
 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
+  const { comics } = useSelector( state => state.comics );
 
   useEffect(() => {
     dispatch(getComics());
   
   }, [])
-  
   
   return (
     <>
@@ -18,9 +18,11 @@ export const ComicsPage = () => {
       <hr/>
 
       <ul>
-        <li>comic 1</li>
-        <li>comic 2</li>
-        <li>comic 3</li>
+        {
+          comics.map( comics => (
+            <li key={comics.id}> {comics.title} </li>
+          ))
+        }
       </ul>
     </>
   )

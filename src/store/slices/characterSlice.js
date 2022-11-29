@@ -3,15 +3,20 @@ import { createSlice } from '@reduxjs/toolkit';
 export const characterSlice = createSlice({
     name: 'character',
     initialState: {
-      counter: 10
+        characters: [],
+        isLoading: false,
     },
     reducers: {
-        increment: (state, /* action */ ) => {
-            state.counter += 1;
+        startLoadingCharacters: (state) => {
+            state.isLoading = true;
         },
+        setCharacters: (state, action) => {
+            state.isLoading = false;
+            state.characters = action.payload.characters;
+        }
     }
 });
       
 
 // Action creators are generated for each case reducer function
-export const { increment } = characterSlice.actions;
+export const { startLoadingCharacters, setCharacters } = characterSlice.actions;
