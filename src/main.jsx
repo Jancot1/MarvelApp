@@ -4,6 +4,7 @@ import { MarvelApp } from './MarvelApp'
 import { Provider } from 'react-redux'
 import { AppTheme } from "./theme/AppTheme"
 import { store } from './store'
+import 'animate.css';
 
 import './styles.css'
 
