@@ -6,49 +6,32 @@ import { HeroCard } from "../components/HeroCard";
 import { SkeletonCard } from "../components/SkeletonCard";
 
 export const CharactersPage = () => {
-
   const dispatch = useDispatch();
-  const { characters, isLoading } = useSelector(state => state.characters);
+  const { characters, isLoading } = useSelector((state) => state.characters);
 
   useEffect(() => {
-
     if (characters.length === 0) {
-      
       dispatch(getCharacters());
     }
-
-  }, [characters])
+  }, [characters]);
 
   return (
     <>
       <h1>Characters</h1>
 
-      <Grid
-        container
-        spacing={1}
-      >
-        {
-          isLoading ? Array.from({ length: 20 }).map((_, index) => (
-            <Grid
-              item
-              key={index}
-            >
-              <SkeletonCard />
-            </Grid>
-          )) :
-          characters.map((characters, index) => (
-            <Grid
-              item
-              key={index}
-            >
-              <HeroCard
-                key={characters.id}
-                {...characters}
-              />
-            </Grid>
-          ))
-        }
+      <Grid container spacing={1}>
+        {isLoading
+          ? Array.from({ length: 20 }).map((_, index) => (
+              <Grid item key={index}>
+                <SkeletonCard />
+              </Grid>
+            ))
+          : characters.map((character, index) => (
+              <Grid item key={index}>
+                <HeroCard key={character.id} character={character} />
+              </Grid>
+            ))}
       </Grid>
     </>
-  )
-}
+  );
+};

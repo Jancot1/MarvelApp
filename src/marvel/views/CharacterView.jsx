@@ -16,19 +16,22 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 export const CharacterView = () => {
   const { id } = useParams();
 
-  const character = getCharacterByName(id);
-
-  const stories = character.stories.items;
+  const character =
+    getCharacterByName(id) ||
+    JSON.parse(localStorage.getItem("characterSelected"));
 
   const navigate = useNavigate();
 
   const onClickBack = () => {
+    localStorage.removeItem("characterSelected");
     navigate(-1);
   };
 
   if (!character) {
     return <Navigate to="/characters" />;
   }
+
+  const stories = character.stories.items;
 
   return (
     <>
