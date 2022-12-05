@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { getCharacterByName } from "../helpers/getCharacterByName";
+import { getCharacterById } from "../helpers/getCharacterById";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -17,7 +17,7 @@ export const CharacterView = () => {
   const { id } = useParams();
 
   const character =
-    getCharacterByName(id) ||
+    getCharacterById(id) ||
     JSON.parse(localStorage.getItem("characterSelected"));
 
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-export * from './helpers/getCharacterByName';
+export * from './helpers/getCharacterById';
 export * from './helpers/getComicById';
 
 export * from './layout/MarvelLayout';

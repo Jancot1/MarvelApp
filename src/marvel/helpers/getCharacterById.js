@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-export const getCharacterByName = (id) => {
+export const getCharacterById = (id) => {
 
     const { characters } = useSelector(state => state.characters);
 
