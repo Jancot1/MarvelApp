@@ -1,11 +1,5 @@
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material";
 
 export const EventCard = ({ event }) => {
   const navigate = useNavigate();

@@ -1,5 +1,6 @@
-export * from './helpers/getCharacterById';
 export * from './helpers/getComicById';
+export * from './helpers/getCharacterById';
+export * from './helpers/getEventById';
 
 export * from './layout/MarvelLayout';
 

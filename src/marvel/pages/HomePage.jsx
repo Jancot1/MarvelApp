@@ -1,9 +1,8 @@
-import { Grid, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { getEvents } from "../../store/slices/thunks";
-import { EventCard } from "../components/EventCard";
-import { SkeletonCard } from "../components/SkeletonCard";
+import { Grid, Typography } from "@mui/material";
+import { getEvents } from "../../store";
+import { EventCard, SkeletonCard } from "../components";
 
 export const HomePage = () => {
 

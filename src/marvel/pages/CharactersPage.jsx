@@ -1,9 +1,8 @@
-import { Grid } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCharacters } from "../../store/slices/thunks";
-import { HeroCard } from "../components/HeroCard";
-import { SkeletonCard } from "../components/SkeletonCard";
+import { Grid } from "@mui/material";
+import { getCharacters } from "../../store";
+import { HeroCard, SkeletonCard } from "../components";
 
 export const CharactersPage = () => {
   const dispatch = useDispatch();

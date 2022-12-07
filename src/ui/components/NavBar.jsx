@@ -1,22 +1,13 @@
-import { styled, alpha } from "@mui/material/styles";
-import {
-  Box,
-  Toolbar,
-  IconButton,
-  Typography,
-  InputBase,
-  AppBar,
-  Autocomplete,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import { SideBar } from "./SideBar";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useDebounce } from "react-haiku";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCharacterByName, getComicByName, getEventByName } from "../../store/slices/thunks";
-import { clearResults } from "../../store/slices/searchSlice";
+import { useDebounce } from "react-haiku";
+import { getCharacterByName, getComicByName, getEventByName, clearResults } from "../../store";
+import { Box, Toolbar, IconButton, Typography, InputBase, AppBar, Autocomplete } from "@mui/material";
+import { styled, alpha } from "@mui/material/styles";
+import SearchIcon from "@mui/icons-material/Search";
+import MenuIcon from "@mui/icons-material/Menu";
+import { SideBar } from "./SideBar";
 
 export const NavBar = ({ open, setOpen, drawerwidth }) => {
   const location = useLocation();

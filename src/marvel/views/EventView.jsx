@@ -1,8 +1,8 @@
-import { Box, Card, CardMedia, Divider, Grid, IconButton, styled, Typography } from '@mui/material';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Box, Card, CardMedia, Divider, Grid, IconButton, styled, Typography } from '@mui/material';
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { getEventById } from '../helpers/getEventById';
+import { getEventById } from '../';
 
 export const EventView = () => {
 

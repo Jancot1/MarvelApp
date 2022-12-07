@@ -1,9 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { MarvelLayout } from "../layout/MarvelLayout";
+import { MarvelLayout } from "../";
 import { CharactersPage, ComicsPage, ColectionsPage, HomePage } from "../";
-import { ComicView } from "../views/ComicView";
-import { CharacterView } from "../views/CharacterView";
-import { EventView } from "../views/EventView";
+import { ComicView, CharacterView, EventView } from "../";
 
 
 export const MarvelRoutes = () => {

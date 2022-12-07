@@ -1,19 +1,9 @@
-import {
-  Box,
-  Divider,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  styled,
-} from "@mui/material";
+import { Link } from "react-router-dom";
 
+import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material";
 import ImportContactsSharpIcon from "@mui/icons-material/ImportContactsSharp";
 import StarIcon from "@mui/icons-material/Star";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Link } from "react-router-dom";
 
 export const SideBar = ({ drawerwidth, open }) => {
   return (

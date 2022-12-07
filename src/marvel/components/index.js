@@ -1,3 +1,4 @@
 export * from './ComicCard';
-export * from './HeroCard';
 export * from './EventCard';
+export * from './HeroCard';
+export * from './SkeletonCard';

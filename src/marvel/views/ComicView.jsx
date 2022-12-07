@@ -1,15 +1,6 @@
-import {
-  Box,
-  Card,
-  CardMedia,
-  Divider,
-  Grid,
-  IconButton,
-  styled,
-  Typography,
-} from "@mui/material";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { getComicById } from "../helpers/getComicById";
+import { Box, Card, CardMedia, Divider, Grid, IconButton, styled, Typography } from "@mui/material";
+import { getComicById } from "../";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 

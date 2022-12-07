@@ -1,11 +1,4 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Skeleton, Typography } from "@mui/material";
 
 export const SkeletonCard = () => {
   return (

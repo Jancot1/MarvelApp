@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { MarvelApp } from './MarvelApp'
 import { Provider } from 'react-redux'
-import { AppTheme } from "./theme/AppTheme"
+import { MarvelApp } from './MarvelApp'
+import { AppTheme } from "./theme"
 import { store } from './store'
 import 'animate.css';
 
