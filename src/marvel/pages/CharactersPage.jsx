@@ -17,9 +17,7 @@ export const CharactersPage = () => {
 
   return (
     <>
-      <h1>Characters</h1>
-
-      <Grid container spacing={1}>
+      <Grid container spacing={1} marginTop={5}>
         {isLoading
           ? Array.from({ length: 20 }).map((_, index) => (
               <Grid item key={index}>

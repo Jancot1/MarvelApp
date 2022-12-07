@@ -15,7 +15,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDebounce } from "react-haiku";
 import { useDispatch, useSelector } from "react-redux";
-import { getCharacterByName, getComicByName } from "../../store/slices/thunks";
+import { getCharacterByName, getComicByName, getEventByName } from "../../store/slices/thunks";
 import { clearResults } from "../../store/slices/searchSlice";
 
 export const NavBar = ({ open, setOpen, drawerwidth }) => {
@@ -40,10 +40,14 @@ export const NavBar = ({ open, setOpen, drawerwidth }) => {
     if (location.pathname === "/characters") {
       localStorage.setItem("characterSelected", JSON.stringify(result));
       navigate(`/character/${result.id}`);
-      // console.log(result);
-    } else {
+
+    } else if(location.pathname === "/comics") {
       localStorage.setItem("comicSelected", JSON.stringify(result));
       navigate(`/comic/${result.id}`);
+
+    } else {
+      localStorage.setItem("eventSelected", JSON.stringify(result));
+      navigate(`/event/${result.id}`);
     }
   };
 
@@ -55,11 +59,13 @@ export const NavBar = ({ open, setOpen, drawerwidth }) => {
   useEffect(() => {
     if (debouncedValue.length >= 3) {
       if (location.pathname === "/characters") {
-        //dispatch characters
+        
         dispatch(getCharacterByName(debouncedValue));
       } else if (location.pathname === "/comics") {
-        //dispatch comics
+        
         dispatch(getComicByName(debouncedValue));
+      } else if(location.pathname === "/"){
+        dispatch(getEventByName(debouncedValue));
       }
     }
   }, [debouncedValue]);
@@ -177,7 +183,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",

@@ -1,35 +1,26 @@
-import {
-  Box,
-  Card,
-  CardMedia,
-  Divider,
-  Grid,
-  IconButton,
-  styled,
-  Typography,
-} from "@mui/material";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { getCharacterById } from "../helpers/getCharacterById";
+import { Box, Card, CardMedia, Divider, Grid, IconButton, styled, Typography } from '@mui/material';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { getEventById } from '../helpers/getEventById';
 
-export const CharacterView = () => {
+export const EventView = () => {
+
   const { id } = useParams();
-
-  const character = getCharacterById(id) || JSON.parse(localStorage.getItem("characterSelected"));
-
   const navigate = useNavigate();
 
+  const event = getEventById(id) || JSON.parse(localStorage.getItem("eventSelected"));
+
   const onClickBack = () => {
-    localStorage.removeItem("characterSelected");
+    localStorage.removeItem("eventSelected");
     navigate(-1);
   };
 
-  if (!character) {
-    return <Navigate to="/characters" />;
+  if (!event) {
+    return <Navigate to="/" />;
   }
 
-  const stories = character.stories.items;
+  const stories = event.comics.items;
 
   return (
     <>
@@ -45,7 +36,7 @@ export const CharacterView = () => {
         </Grid>
         <Grid item>
           <h1 className="animate__animated animate__fadeIn">
-            {character.name}
+            {event.name}
           </h1>
         </Grid>
       </Grid>
@@ -61,7 +52,7 @@ export const CharacterView = () => {
             <StyledBox>
               <CardMedia
                 component="img"
-                image={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                image={`${event.thumbnail.path}.${event.thumbnail.extension}`}
               />
             </StyledBox>
           </Card>
@@ -70,12 +61,12 @@ export const CharacterView = () => {
           <Typography variant="h4">Description</Typography>
           <Divider />
           <Typography style={{ marginTop: 15 }}>
-            {character.description
-              ? `${character.description}`
+            {event.description
+              ? `${event.description}`
               : `There is no description.`}
           </Typography>
           <Typography variant="h4" style={{ marginTop: 20 }}>
-            Appearances
+            Related Comics
           </Typography>
           <Divider />
           <Typography
@@ -83,16 +74,17 @@ export const CharacterView = () => {
           >
             {stories.length > 0
               ? stories.map((value, index) => <li key={index}>{value.name}</li>)
-              : "There is no apearences."}
+              : "There is no comics."}
           </Typography>
         </Grid>
       </Grid>
     </>
-  );
-};
+  )
+}
 
 const StyledBox = styled(Box)(() => ({
   padding: "5px",
   border: "1px solid #ccd1d1",
   borderRadius: "5px",
 }));
+
