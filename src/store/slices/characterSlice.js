@@ -4,6 +4,7 @@ export const characterSlice = createSlice({
     name: 'character',
     initialState: {
         characters: [],
+        page: 0,
         isLoading: false,
     },
     reducers: {
@@ -12,6 +13,7 @@ export const characterSlice = createSlice({
         },
         setCharacters: (state, action) => {
             state.isLoading = false;
+            state.page = action.payload.page;
             state.characters = action.payload.characters;
         }
     }

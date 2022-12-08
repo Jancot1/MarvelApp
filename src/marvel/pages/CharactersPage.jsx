@@ -1,16 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid } from "@mui/material";
 import { getCharacters } from "../../store";
 import { HeroCard, SkeletonCard } from "../components";
+import { Grid, Pagination } from "@mui/material";
+import Stack from '@mui/material/Stack';
 
 export const CharactersPage = () => {
   const dispatch = useDispatch();
-  const { characters, isLoading } = useSelector((state) => state.characters);
+  const [page, setPage] = useState(1);
+  const { characters, isLoading} = useSelector((state) => state.characters);
 
   useEffect(() => {
     if (characters.length === 0) {
-      dispatch(getCharacters());
+      dispatch(getCharacters(page));
     }
   }, [characters]);
 
@@ -28,6 +30,19 @@ export const CharactersPage = () => {
                 <HeroCard key={character.id} character={character} />
               </Grid>
             ))}
+      </Grid>
+      <Grid container marginTop={4}>
+        <Stack>
+          <Pagination
+            count={20}
+            color="primary"
+            page={page}
+            onChange={(_, value) => {
+              setPage(value);
+              dispatch(getCharacters(value));
+            }}
+          />
+        </Stack>
       </Grid>
     </>
   );

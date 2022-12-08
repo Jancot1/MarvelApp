@@ -4,6 +4,7 @@ export const eventSlice = createSlice({
     name: 'event',
     initialState: {
       events: [],
+      page: 0,
       isLoading: false,
     },
     reducers: {
@@ -12,6 +13,7 @@ export const eventSlice = createSlice({
         },
         setEvents: ( state, action ) => {
           state.isLoading = false,
+          state.page = action.payload.page
           state.events = action.payload.events
         }
     }

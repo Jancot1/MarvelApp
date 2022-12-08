@@ -4,6 +4,7 @@ export const comicSlice = createSlice({
   name: 'comic',
   initialState: {
     comics: [],
+    page: 0,
     isLoading: false,
   },
   reducers: {
@@ -12,6 +13,7 @@ export const comicSlice = createSlice({
     },
     setComics: (state, action) => {
       state.isLoading = false;
+      state.page = action.payload.page;
       state.comics = action.payload.comics;
     }
   },
