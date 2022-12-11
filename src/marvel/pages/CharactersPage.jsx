@@ -3,18 +3,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCharacters } from "../../store";
 import { HeroCard, SkeletonCard } from "../components";
 import { Grid, Pagination } from "@mui/material";
+import { animateScroll as scroll } from "react-scroll";
+import Slide from '@mui/material/Slide';
 import Stack from '@mui/material/Stack';
 
 export const CharactersPage = () => {
-  const dispatch = useDispatch();
-  const [page, setPage] = useState(1);
+
   const { characters, isLoading} = useSelector((state) => state.characters);
+  const [page, setPage] = useState(1);
+  const [check, setCheck] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (characters.length === 0) {
       dispatch(getCharacters(page));
     }
   }, [characters]);
+
+  useEffect(() => {
+    setCheck(true);
+  }, []);
+
+  const scrollToTop = () => {
+    scroll.scrollToTop();
+  };
 
   return (
     <>
@@ -26,12 +38,18 @@ export const CharactersPage = () => {
               </Grid>
             ))
           : characters.map((character, index) => (
-              <Grid item key={index}>
-                <HeroCard key={character.id} character={character} />
-              </Grid>
+              <Slide
+                in={check} 
+                style={{ transformOrigin: '0 0 0' }}
+                {...(check ? {timeout: 1000} : {})}
+              >
+                <Grid item key={index}>
+                  <HeroCard key={character.id} character={character} />
+                </Grid>
+              </Slide>
             ))}
       </Grid>
-      <Grid container marginTop={4}>
+      <Grid container marginTop={4} justifyContent={"center"}>
         <Stack>
           <Pagination
             count={20}
@@ -41,6 +59,7 @@ export const CharactersPage = () => {
               setPage(value);
               dispatch(getCharacters(value));
             }}
+            onClick={scrollToTop}
           />
         </Stack>
       </Grid>

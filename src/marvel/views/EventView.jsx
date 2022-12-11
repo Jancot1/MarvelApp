@@ -36,7 +36,7 @@ export const EventView = () => {
         </Grid>
         <Grid item>
           <h1 className="animate__animated animate__fadeIn">
-            {event.name}
+            {event.title}
           </h1>
         </Grid>
       </Grid>

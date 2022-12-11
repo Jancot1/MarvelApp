@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from "react-redux"
 import { getEvents } from "../../store";
 import { EventCard, SkeletonCard } from "../components";
 import { Grid, Typography, Pagination } from "@mui/material";
+import { animateScroll as scroll } from "react-scroll";
+import Slide from '@mui/material/Slide';
 import Stack from '@mui/material/Stack';
 
 export const HomePage = () => {
 
   const { events, isLoading } = useSelector( (state) => state.events);
   const [page, setPage] = useState(1);
+  const [check, setCheck] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,11 +20,20 @@ export const HomePage = () => {
     }
   }, [events]);
 
+  useEffect(() => {
+    setCheck(true);
+  }, []);
+
+  const scrollToTop = () => {
+    scroll.scrollToTop();
+  };
+
   return (
     <>
-      <Typography variant="h4" align="center" marginTop={4}>
+      <Typography variant="h4" marginTop={4}>
         Especial Events
       </Typography>
+      <hr />
       <Grid container spacing={1} marginTop={4}>
         {isLoading
           ? Array.from({ length: 20 }).map((_, index) => (
@@ -30,13 +42,20 @@ export const HomePage = () => {
               </Grid>
             ))
           : events.map((event, index) => (
-              <Grid item key={index}>
-                <EventCard key={event.id} event={event} />
-              </Grid>
+              <Slide
+                direction="down"
+                in={check} 
+                style={{ transformOrigin: '0 0 0' }}
+                {...(check ? {timeout: 1000} : {})}
+              >
+                <Grid item key={index}>
+                  <EventCard key={event.id} event={event} />
+                </Grid>
+              </Slide>
             ))}
 
       </Grid>
-      <Grid container marginTop={4}>
+      <Grid container marginTop={4} justifyContent={"center"}>
         <Stack spacing={2}>
           <Pagination
             count={6}
@@ -46,6 +65,7 @@ export const HomePage = () => {
               setPage(value);
               dispatch(getEvents(value))
             }}
+            onClick={scrollToTop}
           />
         </Stack>
       </Grid>

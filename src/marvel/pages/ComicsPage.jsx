@@ -1,21 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getComics } from "../../store";
 import { ComicCard, SkeletonCard } from "../components";
 import { Grid, Pagination } from "@mui/material";
+import { animateScroll as scroll } from "react-scroll";
+import Slide from '@mui/material/Slide';
 import Stack from "@mui/material/Stack";
-import { useState } from "react";
 
 export const ComicsPage = () => {
-  const dispatch = useDispatch();
-  const [page, setPage] = useState(1);
+
   const { comics, isLoading } = useSelector((state) => state.comics);
+  const [page, setPage] = useState(1);
+  const [check, setCheck] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (comics.length === 0) {
       dispatch(getComics(page));
     }
   }, [comics]);
+
+  useEffect(() => {
+    setCheck(true);
+  }, []);
+
+  const scrollToTop = () => {
+    scroll.scrollToTop();
+  };
 
   return (
     <>
@@ -27,12 +38,18 @@ export const ComicsPage = () => {
               </Grid>
             ))
           : comics.map((comic, index) => (
-              <Grid item key={index}>
-                <ComicCard key={comic.id} comic={comic} />
-              </Grid>
+              <Slide
+              in={check} 
+              style={{ transformOrigin: '0 0 0' }}
+              {...(check ? {timeout: 1000} : {})}
+              >
+                <Grid item key={index}>
+                  <ComicCard key={comic.id} comic={comic} />
+                </Grid>
+              </Slide>
             ))}
       </Grid>
-      <Grid container marginTop={4}>
+      <Grid container marginTop={4} justifyContent={"center"}>
         <Stack spacing={2}>
           <Pagination
             count={10}
@@ -42,6 +59,7 @@ export const ComicsPage = () => {
               setPage(value);
               dispatch(getComics(value));
             }}
+            onClick={scrollToTop}
           />
         </Stack>
       </Grid>

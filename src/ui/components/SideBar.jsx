@@ -1,11 +1,19 @@
 import { Link } from "react-router-dom";
-
 import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material";
 import ImportContactsSharpIcon from "@mui/icons-material/ImportContactsSharp";
 import StarIcon from "@mui/icons-material/Star";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import HomeIcon from '@mui/icons-material/Home';
+import { useState } from "react";
 
 export const SideBar = ({ drawerwidth, open }) => {
+
+  const [selectedIndex, setSelectedIndex] = useState(1);
+
+  const handleClick = (event, index) => {
+    setSelectedIndex(index);
+  };
+
   return (
     <Box>
       <Drawer
@@ -29,7 +37,25 @@ export const SideBar = ({ drawerwidth, open }) => {
         <Divider />
         <List>
           <ListItem disablePadding>
-            <ListItemButton color="inherit" component={Link} to="/comics">
+            <ListItemButton 
+              color="inherit" 
+              component={Link} to="/" 
+              selected={selectedIndex === 0}
+              onClick={(event) => handleClick(event, 0)}
+            >
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Home" color="primary.contrastText" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton 
+              color="inherit" 
+              component={Link} 
+              to="/comics" 
+              selected={selectedIndex === 1}
+              onClick={(event) => handleClick(event, 1)}>
               <ListItemIcon>
                 <ImportContactsSharpIcon />
               </ListItemIcon>
@@ -37,7 +63,13 @@ export const SideBar = ({ drawerwidth, open }) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton color="inherit" component={Link} to="/characters">
+            <ListItemButton 
+              color="inherit" 
+              component={Link} 
+              to="/characters" 
+              selected={selectedIndex === 2}
+              onClick={(event) => handleClick(event, 2)}
+            >
               <ListItemIcon>
                 <StarIcon />
               </ListItemIcon>
@@ -45,7 +77,13 @@ export const SideBar = ({ drawerwidth, open }) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton color="inherit" component={Link} to="/colections">
+            <ListItemButton 
+              color="inherit" 
+              component={Link} 
+              to="/colections" 
+              selected={selectedIndex === 3}
+              onClick={(event) => handleClick(event, 3)}
+            >
               <ListItemIcon>
                 <FavoriteIcon />
               </ListItemIcon>
@@ -63,7 +101,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: "center",
 }));

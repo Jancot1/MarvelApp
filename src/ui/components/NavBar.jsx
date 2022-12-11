@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebounce } from "react-haiku";
 import { getCharacterByName, getComicByName, getEventByName, clearResults } from "../../store";
@@ -18,6 +18,13 @@ export const NavBar = ({ open, setOpen, drawerwidth }) => {
   const debouncedValue = useDebounce(value, 1000);
 
   const navigate = useNavigate();
+
+  const headerNavbar = {
+    '/comics': "Comics",
+    '/characters': "Characters",
+    '/colections': "My Colections",
+    '/': "Home"
+  };
 
   const handleDrawer = () => {
     setOpen(!open);
@@ -50,11 +57,11 @@ export const NavBar = ({ open, setOpen, drawerwidth }) => {
   useEffect(() => {
     if (debouncedValue.length >= 3) {
       if (location.pathname === "/characters") {
-        
         dispatch(getCharacterByName(debouncedValue));
+
       } else if (location.pathname === "/comics") {
-        
         dispatch(getComicByName(debouncedValue));
+        
       } else if(location.pathname === "/"){
         dispatch(getEventByName(debouncedValue));
       }
@@ -78,16 +85,14 @@ export const NavBar = ({ open, setOpen, drawerwidth }) => {
           <Typography
             variant="h6"
             noWrap
-            component={Link}
             color="inherit"
-            to="/"
             sx={{
               flexGrow: 1,
               display: { xs: "none", sm: "block" },
               textDecoration: "none",
             }}
           >
-            MarvelApp
+            MarvelApp / {headerNavbar[location.pathname]}
           </Typography>
           <Search>
             <Autocomplete

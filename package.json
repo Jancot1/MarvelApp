@@ -21,7 +21,8 @@
     "react-dom": "^18.2.0",
     "react-haiku": "^2.0.3",
     "react-redux": "^8.0.5",
-    "react-router-dom": "6"
+    "react-router-dom": "6",
+    "react-scroll": "^1.8.8"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
