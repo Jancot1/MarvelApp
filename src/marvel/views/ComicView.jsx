@@ -68,9 +68,11 @@ export const ComicView = () => {
           </Typography>
           <Divider />
           <Typography style={{ marginTop: 15, marginLeft: 15 }}>
-            {creators.map((value, index) => (
-              <li key={index}>{value.name}</li>
-            ))}
+            {creators.length > 0
+              ? creators.map((value, index) => (
+                  <li key={index}>{value.name}</li>
+                ))
+              : "There is no information."}
           </Typography>
         </Grid>
       </Grid>

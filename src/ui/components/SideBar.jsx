@@ -40,8 +40,8 @@ export const SideBar = ({ drawerwidth, open }) => {
             <ListItemButton 
               color="inherit" 
               component={Link} to="/" 
-              selected={selectedIndex === 0}
-              onClick={(event) => handleClick(event, 0)}
+              selected={selectedIndex === 1}
+              onClick={(event) => handleClick(event, 1)}
             >
               <ListItemIcon>
                 <HomeIcon />
@@ -54,8 +54,8 @@ export const SideBar = ({ drawerwidth, open }) => {
               color="inherit" 
               component={Link} 
               to="/comics" 
-              selected={selectedIndex === 1}
-              onClick={(event) => handleClick(event, 1)}>
+              selected={selectedIndex === 0}
+              onClick={(event) => handleClick(event, 0)}>
               <ListItemIcon>
                 <ImportContactsSharpIcon />
               </ListItemIcon>

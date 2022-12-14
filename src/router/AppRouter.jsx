@@ -7,7 +7,7 @@ export const AppRouter = () => {
 
   return (
     <Routes>
-      {authStatus === "not-authenticated" ? (
+      {authStatus === "authenticated" ? (
         <Route path="/auth/*" element={<AuthRoutes />} />
       ) : (
         <Route path="/*" element={<MarvelRoutes />} />

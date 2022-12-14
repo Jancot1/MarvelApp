@@ -1,3 +1,5 @@
+export * from './auth/authSlice';
+
 export * from './store';
 export * from './slices/comicSlice';
 export * from './slices/characterSlice';

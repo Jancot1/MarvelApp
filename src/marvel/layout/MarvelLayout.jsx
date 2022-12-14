@@ -14,6 +14,7 @@ export const MarvelLayout = () => {
       <NavBar open={open} setOpen={setOpen} drawerwidth={drawerwidth} />
       <Main
         component='main'
+        sx={{ flexGrow: 1, padding: 8}}
         open={open}
       >
         <Outlet />
