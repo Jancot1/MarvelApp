@@ -1,28 +1,34 @@
-import { Link, Link as RouterLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { Alert, Button, Grid, TextField, Typography } from "@mui/material";
+import { useMemo } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Alert, Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { Google } from '@mui/icons-material';
+
 import { AuthLayout } from "../";
 import { useForm } from "../../hooks";
-import { checkingAuth } from '../../store/slices/thunks';
+import { startGoogleSignIn, startLoginUserWithEmailPassword } from '../../store';
 
 const formData = {
   email: '',
   password: ''
 }
 
-// const onGoogleSignIn = () => {
-//   dispatch(startGoogleSignIn());
-// }
-
 export const LoginPage = () => {
 
+  const {status, errorMessage} = useSelector(state => state.auth);
+  const isAuthenticating = useMemo(() => status === 'checking', [status] );
+
   const {email, password, onInputChange} = useForm(formData);
+  
   const dispatch = useDispatch();
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(checkingAuth());
+    dispatch(startLoginUserWithEmailPassword({email, password}));
+  }
+
+  const onGoogleSignIn = () => {
+    dispatch(startGoogleSignIn());
   }
 
   return (
@@ -52,7 +58,7 @@ export const LoginPage = () => {
             />
           </Grid>
 
-          {/* <Grid 
+          <Grid 
           container
           display={!!errorMessage ? '' : 'none' }
           sx={{mt:1}}
@@ -61,14 +67,14 @@ export const LoginPage = () => {
               item
               xs={12}
             >
-              <Alert severity='error'>{errorMessage}</Alert>
+              <Alert severity='error'>Email o contraseña incorrectos</Alert>
             </Grid>
-          </Grid> */}
+          </Grid>
 
           <Grid container spacing={2} sx={{ mb:2, mt:1 }}>
             <Grid item xs={12} sm={6}>
               <Button
-                // disabled={isAuthenticating}
+                disabled={isAuthenticating}
                 type="submit" 
                 variant="contained"
                 fullWidth
@@ -78,10 +84,10 @@ export const LoginPage = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Button 
-                // disabled={isAuthenticating}
+                disabled={isAuthenticating}
                 variant="contained"
                 fullWidth
-                // onClick={onGoogleSignIn}
+                onClick={onGoogleSignIn}
                 >
                 <Google />
                   <Typography sx={{ml: 1}}>Google</Typography>

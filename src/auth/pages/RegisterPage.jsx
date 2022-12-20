@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import { Link, Link as RouterLink } from 'react-router-dom';
-import { Alert, Button, Grid, TextField, Typography } from "@mui/material";
+import { useMemo, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Alert, Button, Grid, Link, TextField, Typography } from "@mui/material";
+
 import { AuthLayout } from "../";
 import { useForm } from '../../hooks';
+import { startCreatingUserWithEmailPassword } from '../../store';
 
 const formData = {
   email: '',
@@ -21,14 +24,28 @@ export const RegisterPage = () => {
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  const {status, errorMessage} = useSelector(state => state.auth);
+  const isCheckingAuthentication = useMemo(() => status === 'checking', [status]);
+
+  const dispatch = useDispatch();
+
   const {
     formState, displayName, email, password, onInputChange,
     isFormValid, displayNameValid, emailValid, passwordValid 
   } = useForm(formData, formValidations);
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setFormSubmitted(true);
+
+    if (!isFormValid) return;
+
+    dispatch(startCreatingUserWithEmailPassword(formState));
+  }
+
   return (
     <AuthLayout title="Register">
-      <form className='animate__animated animate__fadeIn animate__faster'>
+      <form className='animate__animated animate__fadeIn animate__faster' onSubmit={onSubmit}>
         <Grid container>
           <Grid item xs={ 12 } sx={{ mt:2 }}>
             <TextField 
@@ -71,16 +88,16 @@ export const RegisterPage = () => {
           </Grid>
 
           <Grid container spacing={2} sx={{ mb:2, mt:1 }}>
-            {/* <Grid 
+            <Grid 
               item 
               xs={12}
               display={!!errorMessage ? '' : 'none' }
               >
-              <Alert severity='error'>{errorMessage}</Alert>
-            </Grid> */}
+              <Alert severity='error'>El correo ingresado no es valido</Alert>
+            </Grid>
             <Grid item xs={12}>
               <Button
-                // disabled={isCheckingAuthentication}
+                disabled={isCheckingAuthentication}
                 type="submit"
                 variant="contained" 
                 fullWidth

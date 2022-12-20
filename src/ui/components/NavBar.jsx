@@ -2,17 +2,23 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebounce } from "react-haiku";
-import { getCharacterByName, getComicByName, getEventByName, clearResults } from "../../store";
-import { Box, Toolbar, IconButton, Typography, InputBase, AppBar, Autocomplete } from "@mui/material";
-import { styled, alpha } from "@mui/material/styles";
+import { getCharacterByName, getComicByName, getEventByName, clearResults, startLogout } from "../../store";
+
+import { 
+  Box, Toolbar, IconButton, Typography, InputBase, AppBar, Autocomplete, 
+  Tooltip, Avatar, Menu, MenuItem, Divider, ListItemIcon 
+} from "@mui/material";
+import { Logout } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
+import { styled, alpha } from "@mui/material/styles";
 import { SideBar } from "./SideBar";
 
 export const NavBar = ({ open, setOpen, drawerwidth }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { results } = useSelector((state) => state.search);
+  const { displayName } = useSelector(state => state.auth);
 
   const [value, setValue] = useState("");
   const debouncedValue = useDebounce(value, 1000);
@@ -20,10 +26,10 @@ export const NavBar = ({ open, setOpen, drawerwidth }) => {
   const navigate = useNavigate();
 
   const headerNavbar = {
-    '/comics': "Comics",
-    '/characters': "Characters",
-    '/colections': "My Colections",
-    '/': "Home"
+    "/comics": "Comics",
+    "/characters": "Characters",
+    "/colections": "My Colections",
+    "/": "Home",
   };
 
   const handleDrawer = () => {
@@ -38,11 +44,9 @@ export const NavBar = ({ open, setOpen, drawerwidth }) => {
     if (location.pathname === "/characters") {
       localStorage.setItem("characterSelected", JSON.stringify(result));
       navigate(`/character/${result.id}`);
-
-    } else if(location.pathname === "/comics") {
+    } else if (location.pathname === "/comics") {
       localStorage.setItem("comicSelected", JSON.stringify(result));
       navigate(`/comic/${result.id}`);
-
     } else {
       localStorage.setItem("eventSelected", JSON.stringify(result));
       navigate(`/event/${result.id}`);
@@ -58,15 +62,26 @@ export const NavBar = ({ open, setOpen, drawerwidth }) => {
     if (debouncedValue.length >= 3) {
       if (location.pathname === "/characters") {
         dispatch(getCharacterByName(debouncedValue));
-
       } else if (location.pathname === "/comics") {
         dispatch(getComicByName(debouncedValue));
-        
-      } else if(location.pathname === "/"){
+      } else if (location.pathname === "/") {
         dispatch(getEventByName(debouncedValue));
       }
     }
   }, [debouncedValue]);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openend = Boolean(anchorEl);
+  const onClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const onLogout = () => {
+    dispatch(startLogout())
+  }
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -126,6 +141,39 @@ export const NavBar = ({ open, setOpen, drawerwidth }) => {
               )}
             />
           </Search>
+          <Box>
+            <Tooltip title="Account settings">
+              <IconButton
+                onClick={onClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={openend ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={openend ? "true" : undefined}
+              >
+                <Avatar sx={{ width: 32, height: 32 }} />
+              </IconButton>
+            </Tooltip>
+          </Box>
+          <Menu
+            anchorEl={anchorEl}
+            id="account-menu"
+            open={openend}
+            onClick={handleClose}
+            transformOrigin={{ horizontal: "right", vertical: "top" }}
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          >
+            <MenuItem>
+             {displayName}
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={onLogout}>
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
         </Toolbar>
       </AppBarComponent>
       <SideBar open={open} drawerwidth={drawerwidth} />

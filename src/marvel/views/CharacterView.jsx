@@ -74,7 +74,7 @@ export const CharacterView = () => {
           >
             {stories.length > 0
               ? stories.map((value, index) => <li key={index}>{value.name}</li>)
-              : "There is no apearences."}
+              : "There is no information."}
           </Typography>
         </Grid>
       </Grid>

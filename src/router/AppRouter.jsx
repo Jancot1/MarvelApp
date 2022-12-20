@@ -1,17 +1,24 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AuthRoutes } from "../auth";
 import { MarvelRoutes } from "../marvel";
+import { useCheckAuth } from "../hooks";
+import { LoadingScreen } from "../ui";
 
 export const AppRouter = () => {
-  const authStatus = "authenticated";
+
+  const { status } = useCheckAuth();
+
+  if (status === 'checking') {
+    return <LoadingScreen />
+  }
 
   return (
     <Routes>
-      {authStatus === "authenticated" ? (
-        <Route path="/auth/*" element={<AuthRoutes />} />
-      ) : (
-        <Route path="/*" element={<MarvelRoutes />} />
-      )}
+      {
+        (status === "not-authenticated") 
+        ? <Route path="/auth/*" element={<AuthRoutes />} />
+        : <Route path="/*" element={<MarvelRoutes />} />
+      }
 
       <Route path="/*" element={<Navigate to="/auth/login" />} />
       <Route />
