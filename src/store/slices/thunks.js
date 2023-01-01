@@ -1,6 +1,7 @@
 import { marvelApi } from "../../api/marvelApi";
 import { loginWithEmailPassword, logoutFirebase, registerUserData, signInWithGoogle } from "../../firebase";
 import { checkingCredentials, login, logout } from "../auth/authSlice";
+import { onAddNewAlbum, onDeleteAlbum, onUpdateAlbum } from "./albumSlice";
 import { setCharacters, startLoadingCharacters } from "./characterSlice";
 import { setComics, startLoadingComics } from "./comicSlice"
 import { setEvents, startLoadingEvents } from "./eventSlice";
@@ -9,6 +10,7 @@ import { setResults, startSearching } from "./searchSlice";
 const apikey = "6a318defb82780bfc0e9da9331e5c136";
 const hash = "9c4e070b256ef507ec59fde2ab8e4ea1";
 
+// Login / Register
 export const checkingAuth = () => {
     return async(dispatch) => {
 
@@ -59,6 +61,8 @@ export const startLogout = () => {
         dispatch(logout());
     }
 }
+
+// Peticiones
 
 export const getComics = ( page = 0 ) => {
     return async (dispatch) => {
@@ -119,5 +123,24 @@ export const getEventByName = (title) => {
 
         const {data} = await marvelApi.get(`/events?apikey=${apikey}&hash=${hash}&ts=3&nameStartsWith=${title}`);
         dispatch(setResults(data.data.results));
+    }
+}
+
+// Colecciones
+
+export const startSavingAlbum = (event) => {
+    return async(dispatch) => {
+
+        if (event._id) {
+            dispatch(onUpdateAlbum({ ...event }));
+        } else {
+            dispatch(onAddNewAlbum({ ...event, _id: new Date().getTime() }));
+        }
+    }
+}
+
+export const deleteAlbum = (album) => {
+    return async(dispatch) => {
+        dispatch(onDeleteAlbum(album));
     }
 }

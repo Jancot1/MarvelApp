@@ -1,12 +1,23 @@
+import { useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { Box, Card, CardMedia, Divider, Grid, IconButton, styled, Typography } from "@mui/material";
+
+import { Box, Button, Card, CardMedia, Divider, Grid, IconButton, styled, Typography } from "@mui/material";
 import { getComicById } from "../";
+import { ColectItem } from "../components";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export const ComicView = () => {
+  
   const { id } = useParams();
+
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   const comic =
     getComicById(id) || JSON.parse(localStorage.getItem("comicSelected"));
@@ -74,6 +85,22 @@ export const ComicView = () => {
                 ))
               : "There is no information."}
           </Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            onClick={handleOpen}
+            sx={{
+              color: 'white',
+              backgroundColor: 'green',
+              ':hover': {backgroundColor: 'green', opacity: 0.8},
+              position: 'fixed',
+              right: 200,
+              top: 90
+            }}
+          >
+            Save
+          </Button>
+          <ColectItem open={open} setOpen={setOpen}/>
         </Grid>
       </Grid>
     </>

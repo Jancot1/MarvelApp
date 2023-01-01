@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material";
+import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material";
 import ImportContactsSharpIcon from "@mui/icons-material/ImportContactsSharp";
 import StarIcon from "@mui/icons-material/Star";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -30,9 +30,9 @@ export const SideBar = ({ drawerwidth, open }) => {
         open={open}
       >
         <DrawerHeader>
-          <Link className="navbar-brand logo" to="/">
+          <Grid className="navbar-brand logo" >
             <img src="../marvel.png" width="150" height="95" />
-          </Link>
+          </Grid>
         </DrawerHeader>
         <Divider />
         <List>

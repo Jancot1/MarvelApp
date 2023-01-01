@@ -1,15 +1,24 @@
+import { useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { Box, Card, CardMedia, Divider, Grid, IconButton, styled, Typography } from '@mui/material';
+import { Box, Button, Card, CardMedia, Divider, Grid, IconButton, styled, Typography } from '@mui/material';
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { getEventById } from '../';
+import { ColectItem } from '../components/';
 
 export const EventView = () => {
 
   const { id } = useParams();
+  
   const navigate = useNavigate();
 
   const event = getEventById(id) || JSON.parse(localStorage.getItem("eventSelected"));
+
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   const onClickBack = () => {
     localStorage.removeItem("eventSelected");
@@ -76,6 +85,22 @@ export const EventView = () => {
               ? stories.map((value, index) => <li key={index}>{value.name}</li>)
               : "There is no comics."}
           </Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            onClick={handleOpen}
+            sx={{
+              color: 'white',
+              backgroundColor: 'green',
+              ':hover': {backgroundColor: 'green', opacity: 0.8},
+              position: 'fixed',
+              right: 200,
+              top: 90
+            }}
+          >
+            Save
+          </Button>
+          <ColectItem open={open} setOpen={setOpen}/>
         </Grid>
       </Grid>
     </>

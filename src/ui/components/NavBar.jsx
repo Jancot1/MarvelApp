@@ -6,7 +6,7 @@ import { getCharacterByName, getComicByName, getEventByName, clearResults, start
 
 import { 
   Box, Toolbar, IconButton, Typography, InputBase, AppBar, Autocomplete, 
-  Tooltip, Avatar, Menu, MenuItem, Divider, ListItemIcon 
+  Tooltip, Avatar, Menu, MenuItem, Divider, ListItemIcon
 } from "@mui/material";
 import { Logout } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -18,7 +18,7 @@ export const NavBar = ({ open, setOpen, drawerwidth }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { results } = useSelector((state) => state.search);
-  const { displayName } = useSelector(state => state.auth);
+  const { displayName, photoURL } = useSelector(state => state.auth);
 
   const [value, setValue] = useState("");
   const debouncedValue = useDebounce(value, 1000);
@@ -151,7 +151,7 @@ export const NavBar = ({ open, setOpen, drawerwidth }) => {
                 aria-haspopup="true"
                 aria-expanded={openend ? "true" : undefined}
               >
-                <Avatar sx={{ width: 32, height: 32 }} />
+                <Avatar src={photoURL ? photoURL : ''} sx={{ width: 32, height: 32 }} />
               </IconButton>
             </Tooltip>
           </Box>
@@ -163,13 +163,17 @@ export const NavBar = ({ open, setOpen, drawerwidth }) => {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
-            <MenuItem>
+            <Typography sx={{ padding: 1, ml: 1, mr: 1 }}>
              {displayName}
-            </MenuItem>
+            </Typography>
             <Divider />
-            <MenuItem onClick={onLogout}>
+            <MenuItem sx={{
+                mt: 1, 
+                ':hover': { color: '#ef5350'}
+              }} 
+              onClick={onLogout}>
               <ListItemIcon>
-                <Logout fontSize="small" />
+                <Logout color="error" fontSize="small" />
               </ListItemIcon>
               Logout
             </MenuItem>
