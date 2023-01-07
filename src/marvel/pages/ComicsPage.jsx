@@ -39,12 +39,13 @@ export const ComicsPage = () => {
             ))
           : comics.map((comic, index) => (
               <Slide
-              in={check} 
-              style={{ transformOrigin: '0 0 0' }}
-              {...(check ? {timeout: 1000} : {})}
+                key={index}
+                in={check} 
+                style={{ transformOrigin: '0 0 0' }}
+                {...(check ? {timeout: 1000} : {})}
               >
-                <Grid item key={index}>
-                  <ComicCard key={comic.id} comic={comic} />
+                <Grid item>
+                  <ComicCard comic={comic} />
                 </Grid>
               </Slide>
             ))}

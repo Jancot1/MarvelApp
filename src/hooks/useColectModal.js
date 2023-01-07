@@ -11,7 +11,7 @@ export const initialColectState = {
 export const useColectModal = () => {
 
   const dispatch = useDispatch();
-  const { activeAlbum } = useSelector( (state) => state.albums)
+  const { activeAlbum } = useSelector( (state) => state.albums);
   const { isModalOpen, closeTypeModal } = useModal();
   const [formValues, setFormValues] = useState(initialColectState);
 
@@ -39,6 +39,7 @@ export const useColectModal = () => {
   
   const onSubmit = (event) => {
     event.preventDefault();
+    if (formValues.title.length <= 0 || formValues.type == "") return;
     dispatch(startSavingAlbum(formValues));
     closeTypeModal();
     setFormValues(initialColectState);

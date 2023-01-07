@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { animateScroll as scroll } from "react-scroll";
 import { getCharacters } from "../../store";
 import { HeroCard, SkeletonCard } from "../components";
 import { Grid, Pagination } from "@mui/material";
-import { animateScroll as scroll } from "react-scroll";
 import Slide from '@mui/material/Slide';
 import Stack from '@mui/material/Stack';
 
@@ -39,12 +39,13 @@ export const CharactersPage = () => {
             ))
           : characters.map((character, index) => (
               <Slide
+                key={index}
                 in={check} 
                 style={{ transformOrigin: '0 0 0' }}
                 {...(check ? {timeout: 1000} : {})}
               >
-                <Grid item key={index}>
-                  <HeroCard key={character.id} character={character} />
+                <Grid item>
+                  <HeroCard character={character} />
                 </Grid>
               </Slide>
             ))}

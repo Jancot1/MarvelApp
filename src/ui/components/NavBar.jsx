@@ -15,8 +15,10 @@ import { styled, alpha } from "@mui/material/styles";
 import { SideBar } from "./SideBar";
 
 export const NavBar = ({ open, setOpen, drawerwidth }) => {
+  
   const location = useLocation();
   const dispatch = useDispatch();
+  
   const { results } = useSelector((state) => state.search);
   const { displayName, photoURL } = useSelector(state => state.auth);
 

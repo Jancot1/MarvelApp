@@ -1,24 +1,21 @@
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { Box, Button, Card, CardMedia, Divider, Grid, IconButton, styled, Typography } from '@mui/material';
+
+import { Box, Card, CardMedia, Divider, Grid, IconButton, styled, Typography } from '@mui/material';
+import { getEventById } from '../';
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { getEventById } from '../';
-import { ColectItem } from '../components/';
+import { SaveButton } from '../components/';
 
 export const EventView = () => {
+
+  const { album } = useSelector( (state) => state.albums );
 
   const { id } = useParams();
   
   const navigate = useNavigate();
 
   const event = getEventById(id) || JSON.parse(localStorage.getItem("eventSelected"));
-
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const onClickBack = () => {
     localStorage.removeItem("eventSelected");
@@ -49,7 +46,6 @@ export const EventView = () => {
           </h1>
         </Grid>
       </Grid>
-
       <Grid
         container
         direction="row"
@@ -86,21 +82,8 @@ export const EventView = () => {
               : "There is no comics."}
           </Typography>
         </Grid>
-        <Grid item>
-          <Button
-            onClick={handleOpen}
-            sx={{
-              color: 'white',
-              backgroundColor: 'green',
-              ':hover': {backgroundColor: 'green', opacity: 0.8},
-              position: 'fixed',
-              right: 200,
-              top: 90
-            }}
-          >
-            Save
-          </Button>
-          <ColectItem open={open} setOpen={setOpen}/>
+        <Grid item sm={4}>
+          <SaveButton album={ album.filter((element) => element.type === "Comics" ) } item={event} />
         </Grid>
       </Grid>
     </>

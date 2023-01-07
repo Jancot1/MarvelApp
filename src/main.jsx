@@ -7,13 +7,16 @@ import { store } from './store'
 import 'animate.css';
 
 import './styles.css'
+import { SnackbarProvider } from './context/SnackbarProvider'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <AppTheme>
-        <MarvelApp/>
-      </AppTheme>
+      <SnackbarProvider>
+        <AppTheme>
+          <MarvelApp/>
+        </AppTheme>
+      </SnackbarProvider>
     </Provider>
   </React.StrictMode>
 )

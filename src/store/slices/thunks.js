@@ -1,7 +1,7 @@
 import { marvelApi } from "../../api/marvelApi";
 import { loginWithEmailPassword, logoutFirebase, registerUserData, signInWithGoogle } from "../../firebase";
 import { checkingCredentials, login, logout } from "../auth/authSlice";
-import { onAddNewAlbum, onDeleteAlbum, onUpdateAlbum } from "./albumSlice";
+import { onAddNewAlbum, onDeleteAlbum, onDeleteItem, onDeleteItemSelected, onSavingItem, onUpdateAlbum } from "./albumSlice";
 import { setCharacters, startLoadingCharacters } from "./characterSlice";
 import { setComics, startLoadingComics } from "./comicSlice"
 import { setEvents, startLoadingEvents } from "./eventSlice";
@@ -142,5 +142,22 @@ export const startSavingAlbum = (event) => {
 export const deleteAlbum = (album) => {
     return async(dispatch) => {
         dispatch(onDeleteAlbum(album));
+    }
+}
+
+export const startSavingItem = (item, value) => {
+    return async(dispatch) => {
+        dispatch(onSavingItem({item, value}));
+    }
+}
+
+export const deleteItem = (item, value) => {
+    return async(dispatch) => {
+        dispatch(onDeleteItem({item, value}));
+    }
+}
+export const deleteItemSelected = (item, value) => {
+    return async(dispatch) => {
+        dispatch(onDeleteItemSelected({item, value}));
     }
 }

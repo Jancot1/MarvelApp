@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 export const uiSlice = createSlice({
     name: 'ui',
     initialState: {
-      isModalOpen: false
+      isModalOpen: false,
+      isSnackOpen: false
     },
     reducers: {
       onOpenTypeModal: (state) => {
@@ -13,9 +14,17 @@ export const uiSlice = createSlice({
       onCloseTypeModal: (state) => {
         state.isModalOpen = false;
       },
+
+      onOpenSnackBar: (state) => {
+        state.isSnackOpen = true;
+      },
+
+      onClouseSnackBar: (state) => {
+        state.isSnackOpen = false;
+      }
     }
 });
       
 
 // Action creators are generated for each case reducer function
-export const { onOpenTypeModal, onCloseTypeModal } = uiSlice.actions;
+export const { onOpenTypeModal, onCloseTypeModal, onOpenSnackBar, onClouseSnackBar } = uiSlice.actions;

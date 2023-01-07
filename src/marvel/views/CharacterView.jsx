@@ -1,24 +1,21 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { Box, Button, Card, CardMedia, Divider, Grid, IconButton, styled, Typography} from "@mui/material";
+
+import { Box, Card, CardMedia, Divider, Grid, IconButton, styled, Typography} from "@mui/material";
 import { getCharacterById } from "../";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { ColectItem } from "../components";
+import { SaveButton } from "../components";
 
 export const CharacterView = () => {
+
+  const { album } = useSelector( (state) => state.albums );
   
   const { id } = useParams();
-
-  const character = getCharacterById(id) || JSON.parse(localStorage.getItem("characterSelected"));
-
+  
   const navigate = useNavigate();
-
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  
+  const character = getCharacterById(id) || JSON.parse(localStorage.getItem("characterSelected"));
 
   const onClickBack = () => {
     localStorage.removeItem("characterSelected");
@@ -87,20 +84,7 @@ export const CharacterView = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Button
-            onClick={handleOpen}
-            sx={{
-              color: 'white',
-              backgroundColor: 'green',
-              ':hover': {backgroundColor: 'green', opacity: 0.8},
-              position: 'fixed',
-              right: 200,
-              top: 90
-            }}
-          >
-            Save
-          </Button>
-          <ColectItem open={open} setOpen={setOpen}/>
+          <SaveButton album={ album.filter((element) => element.type === "Characters" ) } item={character} />
         </Grid>
       </Grid>
     </>

@@ -43,13 +43,14 @@ export const HomePage = () => {
             ))
           : events.map((event, index) => (
               <Slide
+                key={index}
                 direction="down"
                 in={check} 
                 style={{ transformOrigin: '0 0 0' }}
                 {...(check ? {timeout: 1000} : {})}
               >
-                <Grid item key={index}>
-                  <EventCard key={event.id} event={event} />
+                <Grid item >
+                  <EventCard event={event} />
                 </Grid>
               </Slide>
             ))}

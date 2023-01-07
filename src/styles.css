@@ -8,6 +8,15 @@
     border-radius: 50%;
 }
 
+.fab-danger{
+    border-radius: 100%;
+    bottom: 25px;
+    font-size: 22px;
+    position: fixed;
+    width: 60px;
+    height: 60px;
+  }
+
 /* Modal */
 .ReactModalPortal > div{
     opacity: 0;
