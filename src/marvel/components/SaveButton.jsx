@@ -17,7 +17,7 @@ export const SaveButton = ({album, item}) => {
     <>
       <Button
         onClick={handleOpen}
-        className="box-shadow"
+        className="box-shadow-button"
         sx={{
           color: 'white',
           backgroundColor: 'green',

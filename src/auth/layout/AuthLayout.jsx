@@ -2,16 +2,15 @@ import { Grid, Typography } from '@mui/material';
 
 export const AuthLayout = ({ children, title = ''}) => {
   return (
-    
     <Grid 
       container
       spacing={0}
+      className="login-background"
       direction="column"
       alignItems="center"
       justifyContent="center"
-      sx={{ minHeight: '100vh', backgroundColor: 'secondary.main', padding: 4 }}
+      sx={{ minHeight: '100vh', padding: 4 }}
     >
-
       <Grid item
       className='box-shadow'
       xs={3}
@@ -21,12 +20,9 @@ export const AuthLayout = ({ children, title = ''}) => {
         padding: 3,
         borderRadius: 2
       }}>
-
         <Typography variant='h5' sx= {{ mb:1 }}>{title}</Typography>
-
         { children }
-
-        </Grid>
+      </Grid>
     </Grid>
   )
 }

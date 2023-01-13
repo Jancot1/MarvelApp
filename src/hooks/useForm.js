@@ -25,10 +25,20 @@ export const useForm = ( initialForm = {}, formValidations = {} ) => {
 
     const onInputChange = ({ target }) => {
         const { name, value } = target;
-        setFormState({
-            ...formState,
-            [ name ]: value
-        });
+        if (name === 'displayName') {
+            const letras = /^[A-Za-z]*$/;
+            if (letras.test(value)) {
+                setFormState({
+                    ...formState,
+                    [ name ]: value
+                });
+            }
+        } else {
+            setFormState({
+                ...formState,
+                [ name ]: value
+            });
+        }
     }
 
     const onResetForm = () => {

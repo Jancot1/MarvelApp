@@ -14,9 +14,9 @@ export const ColectItem = ({open, setOpen, album = [], item}) => {
 
   const dispatch = useDispatch();
   const { openTypeModal } = useModal();
-  const [checked, setChecked] = useState([0]);
+  const [checked, setChecked] = useState([]);
 
-  const { colections } = useSelector( (state) => state.albums);
+  const { colections, album:Talbums } = useSelector( (state) => state.albums);
 
   const { setAlert } = useContext(SnackbarContext);
 
@@ -27,11 +27,18 @@ export const ColectItem = ({open, setOpen, album = [], item}) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  // useEffect(() => {
-  //   first
   
-  // }, [third])
+  useEffect(() => {
+    const arrayAlbumsId = Object.keys(colections).map((key) =>
+     [...colections[key]].find((element) => element.id == item.id) ? key : false
+    );
+
+    arrayAlbumsId.filter((element) => element !== false).map((key) => {
+      Talbums.filter((t) => t._id == key).map((tAlbum) => {
+        
+      });
+    });
+  }, [colections])
   
 
   const handleToggle = (value) => () => {

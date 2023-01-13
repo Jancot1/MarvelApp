@@ -15,7 +15,7 @@ const formData = {
 
 const formValidations = {
   email: [ (value) => value.includes ('@'), 'El correo necesita un @'],
-  password: [ (value) => value.length >= 6 , 'El password debe ser superior a 6 caracteres'],
+  password: [ (value) => value.length >= 8 , 'El password debe ser superior a 8 caracteres'],
   displayName: [ (value) => value.length > 1, 'El nombre es obligatorio'],
 }
 
@@ -64,7 +64,7 @@ export const RegisterPage = () => {
             <TextField 
               label="Correo" 
               type="email" 
-              placeholder="correo@google.coom"
+              placeholder="correo@google.com"
               fullWidth
               name='email'
               value={email}

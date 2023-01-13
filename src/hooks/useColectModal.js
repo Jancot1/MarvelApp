@@ -11,7 +11,7 @@ export const initialColectState = {
 export const useColectModal = () => {
 
   const dispatch = useDispatch();
-  const { activeAlbum } = useSelector( (state) => state.albums);
+  const { album, activeAlbum } = useSelector( (state) => state.albums);
   const { isModalOpen, closeTypeModal } = useModal();
   const [formValues, setFormValues] = useState(initialColectState);
 
@@ -30,6 +30,30 @@ export const useColectModal = () => {
     });
   };
 
+  const validDuplicateTitle = () => {
+    const isTitleExist = activeAlbum
+      ? album.filter((element) =>
+          element._id !== activeAlbum._id && (
+          element.title.split(' (')[0] === formValues.title ||
+          element.title === formValues.title)
+        )
+      : album.filter((element) =>
+          element.title.split(' (')[0] === formValues.title ||
+          element.title === formValues.title
+        );
+
+    return isTitleExist;
+  }
+
+  const validarAlbumTitle = () => {
+    const isTitleExist = validDuplicateTitle();
+    if (isTitleExist.length > 0) {
+      dispatch(startSavingAlbum({...formValues, title: `${formValues.title} (${isTitleExist.length})`}));
+    } else {
+      dispatch(startSavingAlbum(formValues));
+    }
+  }
+
   const onTypeChanged = (_, { props }) => {
     setFormValues({
       ...formValues,
@@ -40,7 +64,7 @@ export const useColectModal = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     if (formValues.title.length <= 0 || formValues.type == "") return;
-    dispatch(startSavingAlbum(formValues));
+    validarAlbumTitle();
     closeTypeModal();
     setFormValues(initialColectState);
   }
