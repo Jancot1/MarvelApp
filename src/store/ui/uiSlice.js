@@ -1,28 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const uiSlice = createSlice({
-    name: 'ui',
-    initialState: {
-      isModalOpen: false,
-      isSnackOpen: false
-    },
-    reducers: {
-      onOpenTypeModal: (state) => {
-        state.isModalOpen = true;
-      },
+	name: 'ui',
+	initialState: {
+		isModalOpen: false,
+		isSnackOpen: false
+	},
+	reducers: {
+		onOpenTypeModal: (state) => {
+			state.isModalOpen = true;
+		},
 
-      onCloseTypeModal: (state) => {
-        state.isModalOpen = false;
-      },
+		onCloseTypeModal: (state) => {
+			state.isModalOpen = false;
+		},
 
-      onOpenSnackBar: (state) => {
-        state.isSnackOpen = true;
-      },
+		onOpenSnackBar: (state) => {
+			state.isSnackOpen = true;
+		},
 
-      onClouseSnackBar: (state) => {
-        state.isSnackOpen = false;
-      }
-    }
+		onClouseSnackBar: (state) => {
+			state.isSnackOpen = false;
+		}
+	}
 });
       
 

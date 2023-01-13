@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 export const getCharacterById = (id) => {
 
-    const { characters } = useSelector(state => state.characters);
+	const { characters } = useSelector(state => state.characters);
 
-    return characters.find(character => character.id === parseInt(id));
+	return characters.find(character => character.id === parseInt(id));
 
-}
+};

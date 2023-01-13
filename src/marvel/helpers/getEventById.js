@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 export const getEventById = (id) => {
 
-  const { events } = useSelector(state => state.events);
+	const { events } = useSelector(state => state.events);
 
-  return events.find(event => event.id === parseInt(id));
+	return events.find(event => event.id === parseInt(id));
 
-}
+};

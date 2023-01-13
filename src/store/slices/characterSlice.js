@@ -1,22 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const characterSlice = createSlice({
-    name: 'character',
-    initialState: {
-        characters: [],
-        page: 0,
-        isLoading: false,
-    },
-    reducers: {
-        startLoadingCharacters: (state) => {
-            state.isLoading = true;
-        },
-        setCharacters: (state, action) => {
-            state.isLoading = false;
-            state.page = action.payload.page;
-            state.characters = action.payload.characters;
-        }
-    }
+	name: 'character',
+	initialState: {
+		characters: [],
+		page: 0,
+		isLoading: false,
+	},
+	reducers: {
+		startLoadingCharacters: (state) => {
+			state.isLoading = true;
+		},
+		setCharacters: (state, action) => {
+			state.isLoading = false;
+			state.page = action.payload.page;
+			state.characters = action.payload.characters;
+		}
+	}
 });
       
 
