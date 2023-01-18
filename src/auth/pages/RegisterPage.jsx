@@ -102,7 +102,7 @@ export const RegisterPage = () => {
 								variant="contained" 
 								fullWidth
 							>
-                Crear cuenta
+                Create Account
 							</Button>
 						</Grid>
 					</Grid>

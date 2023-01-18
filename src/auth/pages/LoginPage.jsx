@@ -79,7 +79,7 @@ export const LoginPage = () => {
 								variant="contained"
 								fullWidth
 							>
-                Login
+                Sign in
 							</Button>
 						</Grid>
 						<Grid item xs={12} sm={6}>

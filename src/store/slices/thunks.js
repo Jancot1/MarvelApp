@@ -1,7 +1,7 @@
-import { marvelApi } from '../../api/marvelApi';
+import { marvelApi, marvelAppApi } from '../../api/marvelApi';
 import { loginWithEmailPassword, logoutFirebase, registerUserData, signInWithGoogle } from '../../firebase';
 import { checkingCredentials, login, logout } from '../auth/authSlice';
-import { onAddNewAlbum, onDeleteAlbum, onDeleteItem, onDeleteItemSelected, onSavingItem, onUpdateAlbum } from './albumSlice';
+import { loadAlbums, onAddNewAlbum, onDeleteAlbum, onDeleteItem, onDeleteItemSelected, onSavingItem, onUpdateAlbum } from './albumSlice';
 import { setCharacters, startLoadingCharacters } from './characterSlice';
 import { setComics, startLoadingComics } from './comicSlice';
 import { setEvents, startLoadingEvents } from './eventSlice';
@@ -24,6 +24,11 @@ export const startGoogleSignIn = () => {
 		dispatch(checkingCredentials());
         
 		const result = await signInWithGoogle();
+		if (result.ok) {
+			await marvelAppApi.get('/auth/user', { headers: {
+				uid: result.uid
+			}});
+		}
 		if ( !result.ok ) return dispatch(logout( result.errorMessage) );
 
 		dispatch( login(result) );
@@ -36,6 +41,11 @@ export const startCreatingUserWithEmailPassword = ({email, password, displayName
 		dispatch(checkingCredentials());
 
 		const {ok, uid, photoURL, errorMessage} = await registerUserData({email, password, displayName});
+		if (ok) {		
+			await marvelAppApi.get('/auth/user', { headers: {
+				uid: result.uid
+			}});
+		}
 
 		if (!ok) return dispatch(logout({errorMessage}));
 
@@ -47,7 +57,13 @@ export const startLoginUserWithEmailPassword = ({email, password}) => {
 	return async(dispatch) => {
 
 		dispatch(checkingCredentials());
+
 		const result = await loginWithEmailPassword({email, password});
+		if (result.ok) {
+			await marvelAppApi.get('/auth/user', { headers: {
+				uid: result.uid
+			}});
+		}
 
 		if (!result.ok) return dispatch(logout(result));
 		dispatch(login(result));
@@ -128,36 +144,93 @@ export const getEventByName = (title) => {
 
 // Colecciones
 
-export const startSavingAlbum = (event) => {
+export const getColectionsByUid = (uid) => {
+	return async(dispatch) => {
+		const { data } = await marvelAppApi.get('/colections', { headers: { uid }});
+		if (data.ok) {
+			const {colecciones} = data;
+			dispatch(loadAlbums(colecciones));
+		}
+	}
+};
+
+export const startSavingAlbum = (album, uid) => {
 	return async(dispatch) => {
 
-		if (event._id) {
-			dispatch(onUpdateAlbum({ ...event }));
+		if (album.id) {
+			const { data } = await marvelAppApi.put(`/colections/${album.id}`, album, {
+				headers: { uid }
+			});
+			if (data.ok) {
+				dispatch(onUpdateAlbum({ ...data.colectUpdated }));
+			}
 		} else {
-			dispatch(onAddNewAlbum({ ...event, _id: new Date().getTime() }));
+			const { data } = await marvelAppApi.post('/colections', { 
+				title: album.title,
+				type: album.type,
+			}, {
+				headers: { uid }
+			});
+			if (data.ok) {
+				const {colectSaved} = data;
+				dispatch(onAddNewAlbum({ ...colectSaved }));
+			}
 		}
 	};
 };
 
 export const deleteAlbum = (album) => {
 	return async(dispatch) => {
-		dispatch(onDeleteAlbum(album));
+		const { data } = await marvelAppApi.delete(`/colections/${album.id}`, {
+			headers: { uid: album.uid}
+		}, {
+			album: album,
+		})
+		if (data.ok) {
+			const { albumDeleted } = data;
+			dispatch(onDeleteAlbum(albumDeleted));
+		}
 	};
 };
 
 export const startSavingItem = (item, value) => {
 	return async(dispatch) => {
-		dispatch(onSavingItem({item, value}));
+		const { data } = await marvelAppApi.put(`/colections/${value.id}`, {
+			...value,
+			items: [...value.items, item]
+		}, { headers: { uid: value.uid }});
+		if (data.ok) {
+			const { colectUpdated } = data;
+			dispatch(onSavingItem(colectUpdated));
+		}
 	};
 };
 
 export const deleteItem = (item, value) => {
 	return async(dispatch) => {
-		dispatch(onDeleteItem({item, value}));
+		const { data } = await marvelAppApi.put(`/colections/${value.id}`, {
+			...value,
+			items: value.items.filter( element => element.id !== item.id)
+		}, {
+			headers: { uid: value.uid }
+		});
+		if (data.ok) {
+			const { colectUpdated } = data;
+			dispatch(onDeleteItem(colectUpdated));
+		}
 	};
 };
-export const deleteItemSelected = (item, value) => {
+export const deleteItemSelected = (item, id, value) => {
 	return async(dispatch) => {
-		dispatch(onDeleteItemSelected({item, value}));
+		const { data } = await marvelAppApi.put(`/colections/${id}`, {
+			...value,
+			items: value.items.filter( element => element.id !== item.id)
+		}, {
+			headers: { uid: value.uid }
+		});
+		if (data.ok) {
+			const { colectUpdated } = data;
+			dispatch(onDeleteItemSelected(colectUpdated));
+		}
 	};
 };

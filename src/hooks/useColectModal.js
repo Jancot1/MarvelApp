@@ -12,6 +12,7 @@ export const useColectModal = () => {
 
 	const dispatch = useDispatch();
 	const { album, activeAlbum } = useSelector( (state) => state.albums);
+	const { uid } = useSelector((state) => state.auth );
 	const { isModalOpen, closeTypeModal } = useModal();
 	const [formValues, setFormValues] = useState(initialColectState);
 
@@ -33,7 +34,7 @@ export const useColectModal = () => {
 	const validDuplicateTitle = () => {
 		const isTitleExist = activeAlbum
 			? album.filter((element) =>
-				element._id !== activeAlbum._id && (
+				element.id !== activeAlbum.id && (
 					element.title.split(' (')[0] === formValues.title ||
           element.title === formValues.title)
 			)
@@ -48,9 +49,9 @@ export const useColectModal = () => {
 	const validarAlbumTitle = () => {
 		const isTitleExist = validDuplicateTitle();
 		if (isTitleExist.length > 0) {
-			dispatch(startSavingAlbum({...formValues, title: `${formValues.title} (${isTitleExist.length})`}));
+			dispatch(startSavingAlbum({...formValues, title: `${formValues.title} (${isTitleExist.length})`}, uid));
 		} else {
-			dispatch(startSavingAlbum(formValues));
+			dispatch(startSavingAlbum(formValues, uid));
 		}
 	};
 

@@ -78,7 +78,7 @@ export const ColectionModal = () => {
 					<Grid container spacing={2} sx={{ mb: 3, mt: 1 }}>
 						<Grid item xs={10} sm={10} sx={{ ml: 5 }}>
 							<Button type="submit" variant="contained" fullWidth>
-                Save
+							{ activeAlbum ? 'Save' : 'Create' }
 							</Button>
 						</Grid>
 					</Grid>

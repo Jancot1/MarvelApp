@@ -6,19 +6,28 @@ import { getAlbumById } from '../';
 import { ComicCard, DeleteButton, HeroCard } from '../components';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useEffect, useState } from 'react';
 
 export const AlbumView = () => {
+	
 	const { id } = useParams();
 
-	const album = getAlbumById(id);
-
+	const album = getAlbumById(id) || JSON.parse(localStorage.getItem("albumSelected"));
+	
 	const navigate = useNavigate();
-
+	
 	const { colections } = useSelector((state) => state.albums);
+	
+	const [arrayItems, setArrayItems] = useState([]);
 
-	const arrayItems = [...colections[id]];
-
+	useEffect(() => {
+		if (colections[album.id] !== undefined) {
+			setArrayItems([...colections[album.id]]);
+		}
+	}, [colections])
+	
 	const onClickBack = () => {
+		localStorage.removeItem('albumSelected');
 		navigate(-1);
 	};
 
@@ -36,7 +45,7 @@ export const AlbumView = () => {
 				</Grid>
 				<Grid item sm={8}>
 					<Typography variant="h4" align="center" marginTop={4}>
-						{album.title} | {album.type}
+						{album?.title} | {album?.type}
 					</Typography>
 				</Grid>
 			</Grid>

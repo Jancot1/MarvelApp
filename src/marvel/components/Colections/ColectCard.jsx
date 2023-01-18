@@ -26,7 +26,8 @@ export const ColectCard = ({ album }) => {
 	};
 
 	const handleClick = () => {
-		navigate(`/colection/${album._id}`);
+		localStorage.setItem("albumSelected", JSON.stringify(album));
+		navigate(`/colection/${album.id}`);
 	};
 
 	const handleClose = () => {
@@ -43,9 +44,15 @@ export const ColectCard = ({ album }) => {
 		<>
 			<Card 
 				sx={{ 
-					maxWidth: 300,
-					minWidth: 200
-				}} 
+					maxWidth: {
+						sm: 300,
+						md: 400
+					},
+					minWidth: {
+						sm: 150,
+						md: 200
+					}
+				}}
 				className="animate__animated animate__fadeIn"
 			>
 				<CardActionArea onDoubleClick={handleClick}>

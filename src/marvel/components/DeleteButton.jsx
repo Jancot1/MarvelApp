@@ -10,10 +10,10 @@ export const DeleteButton = () => {
   
 	const { id } = useParams();
 
-	const { activeItem } = useSelector( (state) => state.albums );
+	const { activeItem, album } = useSelector( (state) => state.albums );
 
 	const onClickDelete = () => {
-		dispatch(deleteItemSelected(activeItem, id));
+		dispatch(deleteItemSelected(activeItem, id, album.find((element) => element.id === id)));
 	};
 
 	return (
