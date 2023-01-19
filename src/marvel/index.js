@@ -2,7 +2,6 @@ export * from './helpers/getComicById';
 export * from './helpers/getAlbumById';
 export * from './helpers/getCharacterById';
 export * from './helpers/getEventById';
-export * from './helpers/getEnvVariables';
 
 export * from './layout/MarvelLayout';
 

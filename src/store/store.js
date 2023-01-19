@@ -1,5 +1,4 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { getEnvVariables } from '../marvel';
 import { authSlice } from './auth/authSlice';
 import { albumSlice } from './slices/albumSlice';
 import { characterSlice } from './slices/characterSlice';
@@ -8,7 +7,7 @@ import { eventSlice } from './slices/eventSlice';
 import { searchSlice } from './slices/searchSlice';
 import { uiSlice } from './ui/uiSlice';
 
-const { REACT_APP_ENVIRONMENT } = getEnvVariables();
+const REACT_APP_ENVIRONMENT = import.meta.env.REACT_APP_ENVIRONMENT;
 
 const combinedReducer = combineReducers({
 	auth: authSlice.reducer,
