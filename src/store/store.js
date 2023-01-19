@@ -7,8 +7,6 @@ import { eventSlice } from './slices/eventSlice';
 import { searchSlice } from './slices/searchSlice';
 import { uiSlice } from './ui/uiSlice';
 
-const REACT_APP_ENVIRONMENT = import.meta.env.REACT_APP_ENVIRONMENT;
-
 const combinedReducer = combineReducers({
 	auth: authSlice.reducer,
 	comics: comicSlice.reducer,
@@ -28,5 +26,5 @@ const rootReducer = ( state, action) => {
 
 export const store = configureStore({
 	reducer: rootReducer,
-	devTools: REACT_APP_ENVIRONMENT !== 'prod',
+	devTools: false,
 });
