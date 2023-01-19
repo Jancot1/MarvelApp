@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { getEnvVariables } from '../marvel';
 
-const { VITE_API_URL } = getEnvVariables();
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export const marvelApi = axios.create({
 	baseURL: 'https://gateway.marvel.com/v1/public'
